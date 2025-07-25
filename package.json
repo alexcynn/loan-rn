@@ -8,7 +8,8 @@
     "ios": "expo run:ios",
     "web": "expo start --web"
     ,
-    "web:build": "expo export --output-dir docs --clear"
+    "web:build": "expo export --output-dir docs --clear && npm run postbuild",
+    "postbuild": "powershell -Command \"$f=Get-ChildItem docs/_expo/static/js/web/AppEntry-*.js; if($f){Copy-Item $f.FullName docs/; (Get-Content docs/index.html) -replace '_expo/static/js/web/', '' | Set-Content docs/index.html; Copy-Item docs/index.html docs/404.html }\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
